@@ -1,9 +1,6 @@
 package com.pabbraga.peritech.config;
 
-import com.pabbraga.peritech.entities.Category;
-import com.pabbraga.peritech.entities.Order;
-import com.pabbraga.peritech.entities.OrderItem;
-import com.pabbraga.peritech.entities.Product;
+import com.pabbraga.peritech.entities.*;
 import com.pabbraga.peritech.entities.enums.OrderStatus;
 import com.pabbraga.peritech.repositories.CategoryRepository;
 import com.pabbraga.peritech.repositories.OrderItemRepository;
@@ -44,6 +41,10 @@ public class DevConfig implements CommandLineRunner {
 
         OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
         orderItemRepository.save(oi1);
+
+        Payment pay1 = new Payment(null, Instant.now(), o1);
+        o1.setPayment(pay1);
+        orderRepository.save(o1);
 
     }
 
