@@ -2,10 +2,7 @@ package com.pabbraga.peritech.config;
 
 import com.pabbraga.peritech.entities.*;
 import com.pabbraga.peritech.entities.enums.OrderStatus;
-import com.pabbraga.peritech.repositories.CategoryRepository;
-import com.pabbraga.peritech.repositories.OrderItemRepository;
-import com.pabbraga.peritech.repositories.OrderRepository;
-import com.pabbraga.peritech.repositories.ProductRepository;
+import com.pabbraga.peritech.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +22,8 @@ public class DevConfig implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,7 +35,10 @@ public class DevConfig implements CommandLineRunner {
         p1.getCategories().add(cat1);
         productRepository.save(p1);
 
-        Order o1 = new Order(null, Instant.now(), OrderStatus.PAID);
+        User u1 = new User(null, "Alex Green", "alex@gmail.com", "123456");
+        userRepository.save(u1);
+
+        Order o1 = new Order(null, Instant.now(), OrderStatus.PAID, u1);
         orderRepository.save(o1);
 
         OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
