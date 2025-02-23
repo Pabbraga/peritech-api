@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
+import java.util.Arrays;
 
 @Configuration
 @Profile(value = "dev")
@@ -16,8 +17,6 @@ public class DevConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -28,12 +27,9 @@ public class DevConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Category cat1 = new Category(null, "headphone");
-        categoryRepository.save(cat1);
-
-        Product p1 = new Product(null, "Fone De Ouvido Headphone Multilaser Preto Pop Ph246", "Lorem ipsum dolor sit amet, consectetur.", 69.30, 0, "");
-        p1.getCategories().add(cat1);
-        productRepository.save(p1);
+        Product p1 = new Product(null, "Fone De Ouvido Headphone Multilaser Preto Pop Ph246", "Lorem ipsum dolor sit amet, consectetur.", "headphone", 69.30, 0, "../img/headsetmulti.jpeg");
+        Product p2 = new Product(null, "Fone De Ouvido Headphone Multilaser Preto Pop Ph246", "Lorem ipsum dolor sit amet, consectetur.", "headphone",69.30, 0, "../img/headsetmulti.jpeg");
+        productRepository.saveAll(Arrays.asList(p1, p2));
 
         User u1 = new User(null, "Alex Green", "alex@gmail.com", "123456");
         userRepository.save(u1);
